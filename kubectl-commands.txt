@@ -1,0 +1,40 @@
+#### commands to work on pods
+
+1.How many pods exist on the system?
+
+    -   Kubectl get pods
+
+2.Create a new pod with the nginx image.
+
+    -   kubectl run nginx --image=nginx
+
+3.Create a new pod using kubectl run with google image: gcr.io/google-samples/kubernetes-bootcamp:v1
+  and exose to 8080 wirh name firstapp
+
+    -   kubectl run firstapp --image:gcr.io/google-samples/kubernetes-bootcamp:v1 --port=8080
+
+4.check the pod in detail
+
+    -   kubectl describe pod pod-name
+
+5.Which nodes are these pods placed on?
+
+    -   kubectl describe pod -o wide [pod-id]
+
+6.Delete the webapp Pod. Once deleted, wait for the pod to fully terminate.
+
+    -   kubectl delete pod webapp
+
+7.Create a new pod with the name redis and with the image redis123.
+Use a pod-definition YAML file. And yes the image name is wrong!
+
+    -   kubectl run redis --image=redis123 --dry-run=client -o yaml > redis-definition.yaml
+    -   kubectl cteate -f redis-definition.yaml
+    -   kebectl get pods
+
+8.Now change the image on this pod to redis. Once done, the pod should be in a running state.
+
+    -   kubectl edit pod redis
+    -   kubectl apply -f redis-definition.yaml
+
+9.

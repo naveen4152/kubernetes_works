@@ -1,0 +1,8 @@
+apiVersion: appsv1
+kind: ReplicaSet
+metadata:
+  name:
+  labels:
+
+spec:
+  replicas: 3
