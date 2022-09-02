@@ -9,3 +9,13 @@ replication controller Scenario:
 - replication controller is old way to replicate the objects. it is replaced with replica set.
 
 - replicaset is an object like pod which replicates the podspec and creates multiple pods based on replicas.
+
+- in replica set we use api version as apps/v1. If  we dont specify apps kubernetes dont understand replicaset.
+
+- The major difference between replication controller and replicaset is selector. In selector we specify labels what objects
+  fall under it so replicaset will manage them too. match lables property will have the objects falls under it
+
+- Why do we need to use lables and selectors in kubernetes ?
+        For example we deployed 3 pods of our frontend application and replicaset or controller needs to monitor
+        the pods so if we name them with labels and selectors it will be easy to track those pods.
+

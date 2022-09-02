@@ -1,0 +1,6 @@
+ - Deployments or high level objects which are used in production side to roll updates and etc.
+
+ - Difference between replicaset and deployments are.
+    .
+    .
+    .

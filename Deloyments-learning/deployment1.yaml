@@ -1,21 +1,23 @@
 apiVersion: apps/v1
-kind: ReplicaSet
+kind: Deployment
 metadata:
-  name: myapp-rs
+  name: myapp-deployment
   labels:
+    app: myapp
     tire: frontend
-
 spec:
-  replicas: 3
+  replicas: 4
+  selector:
+    matchLabels:
+      app: myapp
+      tire: frontend
   template:
     metadata:
-      name: my-app
+      name: myapp
       labels:
+        app: myapp
         tire: frontend
     spec:
       containers:
         - name: nginx
           image: nginx
-  selector:
-    matchLables:
-      tire: frontend
