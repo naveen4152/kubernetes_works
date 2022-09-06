@@ -74,3 +74,25 @@ Use a pod-definition YAML file. And yes the image name is wrong!
 3. get all objects created by  deployment
 
     -   kubectl get all
+
+4. deployment status
+
+    -   kubectl rollout status deployment.apps/deployment1
+
+5. to check history of deployment
+
+    -   kubectl rollout history deployment.apps/deployment1
+
+6. to record all the actions use --record
+
+    -   kubectl create -f deployment1.yaml --record         #this change will record
+
+7. change image in deployment1.yaml using set image command
+
+    -   kubectl set image deployment myapp-deployment nginx=nginx:1.18 --record
+
+8. undo deployment changes
+
+    -   kubectl rollout undo deployment/myapp-deployment --record       #this will undo changes and take previous recorded changes and save as new changes
+
+9.
