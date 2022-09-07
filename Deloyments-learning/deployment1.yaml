@@ -6,6 +6,7 @@ metadata:
     app: myapp
     tire: frontend
 spec:
+  strategy: rollout
   replicas: 4
   selector:
     matchLabels:
