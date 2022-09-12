@@ -95,4 +95,18 @@ Use a pod-definition YAML file. And yes the image name is wrong!
 
     -   kubectl rollout undo deployment/myapp-deployment --record       #this will undo changes and take previous recorded changes and save as new changes
 
-9.
+#### kubectl exec ####
+
+1. exec to running pod with single container
+
+    -   kubectl exec pod-name --bash
+    -   kubectl exec -it podname --bash         #this will take inside container to troubleshoot
+
+2. exec to specific running container in pod with multiple containers
+
+    -   kubectl exec -it pod-name -c container-name --bash      #container name not giver it chooses first container
+
+
+#### How to get Service URl ####
+
+    -   minikube service exposed-pod-name --url
