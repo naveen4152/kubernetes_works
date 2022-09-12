@@ -1,0 +1,10 @@
+ - Deployments or high level objects which are used in production side to roll updates and etc.
+
+ - Difference between replicaset and deployments are.
+    . deployments are capable of taking care of updates and rollbacks.
+    . rollout strategy will update pods one after another
+    .
+
+ - Updates and rollbacks in kubernetes.
+    . rollbacks are used in high environments to avoid downtime of application.
+    .

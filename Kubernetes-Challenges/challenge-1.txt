@@ -1,0 +1,90 @@
+#### Challenge-1 ####
+
+-- 1 -- Create a new pod using kubectl run command with google sample image: gcr.io/google-samples/kubernetes-bootcamp:v1
+  and expose to 8080 with name firstapp. And check if the od creation is successful by running the command.
+
+-- SOLution :
+
+    -   # kubectl run firstapp --image=gcr.io/google-samples/kubernetes-bootcamp:v1 --port=8080
+
+    Checking : # kubectl get pod firstapp
+
+-- 2 -- Expose the application to the local VM by creating a Service object of type NodePort.
+        check if the service is created by running the command.
+
+-- Solution :
+
+    -   # kubectl expose pod firstapp --type=NodePort --name=firstapp
+
+    Checking : # kubectl get svc firstapp
+               # minikube service firstapp --url        #to get URL of exposed pod
+
+-- 3 -- Create another deployment using a YAML file deployment.yaml file that contains information of
+        number of replicas and images to be used. use an nginx image to deploy. Name the deployment as nginx.
+
+-- Solution :
+
+deployment.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: nginx
+spec:
+    selector:
+        matchLables:
+            app: niginxapp
+    replicas: 2
+    template:
+        metadata:
+            name: nginx
+            labels:
+                app: nginxapp
+        spec:
+            containers:
+                - name: nginx
+                  image: nginx
+
+
+    -- # kubectl apply -f deployment.yaml
+
+    Checking : # kubectl get deployment nginx
+
+
+--4-- Create a NodePort type service using a YAML file, Create a service.yaml file that contains information of the
+        port numbers. Name the service nginx-svc and use port 30080 for nodePort.
+        Check if the service is running the command kubectl get svc nginx-svc
+
+-- Solution :
+
+service.yaml
+
+apiVersion: v1
+kind: Service
+metadata:
+    name: nginx-svc
+spec:
+    type: NodePort
+    ports:
+        - port: 80
+          targetPort: 80
+          nodePort: 30080
+
+    selectors:
+        app: nginxapp
+
+
+--5-- Use kubectl exec command to get inside the running nginx pod and write the string
+        "Welcome to fresco nginx pod" to /usr/share/nginx/html/index.html file
+
+-- Solution :
+
+    -   # kubectl exec nginx -- bash -c "echo Welcome to fresco nginx pod > /usr/share/nginx/html/index.html"
+
+    - Check by using cat cmd
+
+    -   # kubectl exec nginx -- cat /usr/share/nginx/html/index.html
+
+    - check using curl
+
+    -   # kubectl exec nginx -- curl http://localhost/

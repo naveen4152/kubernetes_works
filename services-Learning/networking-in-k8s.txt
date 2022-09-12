@@ -1,0 +1,25 @@
+- each node and pod has its own individual ip from communication.
+
+- when node is created internal ip gets created and all pods created inside that node will get assigned from internal ip.
+
+- here comes the conflict when 2 nodes with same internal ip and pods ips exist communication becomes invalid so kubernetes
+    asks us to do it ourself there are plenty of tools avilabel in market for kubernetes networking. ex: cisco , cilium ,flannel etc
+
+- by using networking solutions like weave net to config network in kubernetes cluster they assign uniq ips to nodes and pods
+    to make communication easy.
+
+- kubernetes services enables the communication between the services inside and outside the application.
+
+- for example there are front-end back-end and datasource pods the services are configured to communicate with each pod with
+    another and users
+
+- services are objects just like pods, replicaset
+
+- services types :
+    -node port
+    -clusterip
+    -lodebalancer
+
+- nodeport : node port service will listen on one port and forward requests to pod running application.
+
+- clusterip : in this service clusterip will create

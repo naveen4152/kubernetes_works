@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-deployment
+  labels:
+    app: myapp
+    tire: frontend
+spec:
+  strategy: rollout
+  replicas: 4
+  selector:
+    matchLabels:
+      app: myapp
+      tire: frontend
+  template:
+    metadata:
+      name: myapp
+      labels:
+        app: myapp
+        tire: frontend
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
