@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: back-end                  # name of the service
+spec:
+  type: ClusterIP                 # if northing is secified it taked clusterip as default
+  ports:
+    - targetPort: 80              # this port where backend is exposed
+      port: 80                    # this port where service exposed
+  selector:                       # to link the service we use selector. refer to pod definition file to link backend labels
+    app: my-app
+    type: back-end
