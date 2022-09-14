@@ -19,7 +19,7 @@
 
 - when installing kubernetes the following components will be installed.
 
-#### On Master node
+### On Master node
 
 - **ETCD service** : ETCD is a key value store used by kubernetes to store all data managed to store cluster. 
 when you have multiple masters and multiple nodes in your cluster, ETCD stores all that information.
@@ -33,14 +33,15 @@ interfaces all talk to the API-server to interact with kubernetes cluster.
 - **controllers** : this is brain behind  orchestration. these are responsible for noticing and responding when nodes,containers 
 or end points goes down. 
   
-#### On Worker node
+### On Worker node
 
 - **container runtime** : it is the underlying software that is used to run containers in nodes. like Docker, cri-o, rocket etc
 
 - **kubelet** : this is an agent that runs on every node in the cluster. agent is responsible for making sure that the
 containers are running on the nodes as expected.
 
-- Command line tool available in kubernetes kubectl. it is used to deploy and manage applications on kube cluster
+**Command line tool** : kubectl is available kubernetes command line tool.
+it is used to deploy and manage applications on kube cluster
 
 
 
