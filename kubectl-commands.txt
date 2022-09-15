@@ -110,3 +110,11 @@ Use a pod-definition YAML file. And yes the image name is wrong!
 #### How to get Service URl ####
 
     -   minikube service exposed-pod-name --url
+
+#### Namespaces
+
+    -   kubectl get namespace
+    -   kubectl get pods --namespace=name
+    -   kubectl run redis --image=redis --namespace=name
+    -   kubectl get pods --all-namespaces
+    -
