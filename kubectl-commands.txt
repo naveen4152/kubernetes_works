@@ -37,6 +37,10 @@ Use a pod-definition YAML file. And yes the image name is wrong!
     -   kubectl edit pod redis
     -   kubectl apply -f redis-definition.yaml
 
+9. running pod output yaml
+
+    -   kubectl get pod pod-name -o yaml > pod-def.yaml
+
 
 #### commands to work on replicaset
 
@@ -117,4 +121,12 @@ Use a pod-definition YAML file. And yes the image name is wrong!
     -   kubectl get pods --namespace=name
     -   kubectl run redis --image=redis --namespace=name
     -   kubectl get pods --all-namespaces
-    -
+
+#### Imperative commands
+
+    -   --dry-run: by default as soon as the command is run, the resource will be created. if you simply want
+                    to test your command, use the --dry-run=client option. This will not create the resource insted,
+                    tell you wether the resource can be created and if command is correct or not.
+
+    -   -o yaml : this will output the resource definition in YAML on screen
+
