@@ -1,0 +1,145 @@
+#### commands to work on pods
+
+1.How many pods exist on the system?
+
+    -   Kubectl get pods
+
+2.Create a new pod with the nginx image.
+
+    -   kubectl run nginx --image=nginx
+
+3.Create a new pod using kubectl run with google image: gcr.io/google-samples/kubernetes-bootcamp:v1
+  and exose to 8080 wirh name firstapp
+
+    -   kubectl run firstapp --image:gcr.io/google-samples/kubernetes-bootcamp:v1 --port=8080
+
+4.check the pod in detail
+
+    -   kubectl describe pod pod-name
+
+5.Which nodes are these pods placed on?
+
+    -   kubectl describe pod -o wide [pod-id]
+
+6.Delete the webapp Pod. Once deleted, wait for the pod to fully terminate.
+
+    -   kubectl delete pod webapp
+
+7.Create a new pod with the name redis and with the image redis123.
+Use a pod-definition YAML file. And yes the image name is wrong!
+
+    -   kubectl run redis --image=redis123 --dry-run=client -o yaml > redis-definition.yaml
+    -   kubectl cteate -f redis-definition.yaml
+    -   kebectl get pods
+
+8.Now change the image on this pod to redis. Once done, the pod should be in a running state.
+
+    -   kubectl edit pod redis
+    -   kubectl apply -f redis-definition.yaml
+
+9. running pod output yaml
+
+    -   kubectl get pod pod-name -o yaml > pod-def.yaml
+
+
+#### commands to work on replicaset
+
+1. create replicaset
+
+    -   kubectl create -f rs-ex1.yaml
+
+2. get replicassets
+
+    -   kubectl get replicaset
+
+3. delete replicaset
+
+    -   kubectl delete relicaset rs-ex1.yaml  #it will also delete all underlying pods
+
+4. replace or apply new changes
+
+    -   kubectl replace -f rs-ex2.yaml
+
+5. to scale to 6 pods
+
+    -   kubectl scale--replicas=6 -f rs-ex1.yaml    #scaling wit out modifying file.
+
+
+#### commands to work on Deployments
+
+1. create Deployment
+
+    -   kubectl create -f deployment1.yaml
+
+2. get deployments
+
+    -   kubectl get deployments
+
+3. get all objects created by  deployment
+
+    -   kubectl get all
+
+4. deployment status
+
+    -   kubectl rollout status deployment.apps/deployment1
+
+5. to check history of deployment
+
+    -   kubectl rollout history deployment.apps/deployment1
+
+6. to record all the actions use --record
+
+    -   kubectl create -f deployment1.yaml --record         #this change will record
+
+7. change image in deployment1.yaml using set image command
+
+    -   kubectl set image deployment myapp-deployment nginx=nginx:1.18 --record
+
+8. undo deployment changes
+
+    -   kubectl rollout undo deployment/myapp-deployment --record       #this will undo changes and take previous recorded changes and save as new changes
+
+#### kubectl exec ####
+
+1. exec to running pod with single container
+
+    -   kubectl exec pod-name --bash
+    -   kubectl exec -it podname --bash         #this will take inside container to troubleshoot
+
+2. exec to specific running container in pod with multiple containers
+
+    -   kubectl exec -it pod-name -c container-name --bash      #container name not giver it chooses first container
+
+
+#### How to get Service URl ####
+
+    -   minikube service exposed-pod-name --url
+
+#### Namespaces
+
+    -   kubectl get namespace
+    -   kubectl get pods --namespace=name
+    -   kubectl run redis --image=redis --namespace=name
+    -   kubectl get pods --all-namespaces
+
+#### Imperative commands
+
+    -   --dry-run: by default as soon as the command is run, the resource will be created. if you simply want
+                    to test your command, use the --dry-run=client option. This will not create the resource insted,
+                    tell you wether the resource can be created and if command is correct or not.
+
+    -   -o yaml : this will output the resource definition in YAML on screen
+
+#### Editing pod
+
+   -    we cant edit specifications of an existing pod other than below
+         - spec.container.image
+         - spec.initcontainer.image
+         - spec.activeDeadlineSeconds
+         - spec.tolerations
+
+   -    kubectl edit pod <pod-name>   
+         - once the running pod is edited it will save the changes in new file in temp. now we need to delete the existing od
+            pod and create new pod with new changes file stored in temp.
+        
+   -     
