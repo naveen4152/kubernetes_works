@@ -7,7 +7,7 @@
 - create config-map.yaml
 
 apiVersion: v1
-kind: configMap
+kind: ConfigMap
 metadata:
     name: app-config
 data:

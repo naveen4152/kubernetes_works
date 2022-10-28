@@ -15,7 +15,7 @@ use the configMap created earlier, and assign the value to it. Use below templat
 
 apiVersion: v1
 kind: Pod
-metadata:
+metadata: 
     name: fresco-nginx-pod
 spec:
     containers:
@@ -28,6 +28,37 @@ Test your configuration by executing this command kubectl exec -it fresco-nginx-
 it should display:  http://www.fresco.me
 
 ### solution
+
+- step-1: create a configmap ( imperative way )
+    kubectl create configmap fresco-config --from-literal=SERVER_URL=http://www.fresco.me
+
+  ( declarative way)
+
+vi fresco-config.yaml
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: fresco-config
+data:
+    SERVER_URL: "http://www.fresco.me"
+
+CMD: kubectl create -f fresco-config.yaml
+
+-now create pod
+
+apiVersion: v1
+kind: Pod
+metadata:
+    name: fresco-nginx-pod
+spec:
+    containers:
+        - name: fresco-nginx-container
+          image: nginx
+          envFrom:
+            - configMapRef:
+                 name: fresco-config
+                 key: SERVER_URL
 
 
 
@@ -46,11 +77,46 @@ step-2
 Modify the above nginx pod to add the fresco-secret and mountPath /etc/test:
 use this command to check if the pod and secret are successfully configured:
 
-kubectl exec -it fresco-nginx-od -- sh -c "cat /etc/test* | base64 -d"
+kubectl exec -it fresco-nginx-od -- sh -c "cat /etc/test/* | base64 -d"
 
 it should display both username and password.
 
 ### Solution
+
+( imperative way )
+- kubectl create secret generic fresco-secret --from-literal=user=admin --from-literal=pass=cGFzcw
+
+( Declarative way)
+
+apiVersion: v1
+kind: Secret
+metadata:
+    name: fresco-secret
+data:
+    test.file: |
+        user: YWRtaW4=
+        pass: cGFzcw==
+
+- now add to pod
+
+apiVersion: v1
+kind: Pod
+metadata:
+    name: fresco-nginx-pod
+spec:
+    containers:
+        - name: fresco-nginx-container
+          image: nginx
+          volumeMounts:
+            - name: fresco-secret-volume
+              mountPath: /etc
+              readOnly: true
+    volumes:
+        - name: fresco-secret-volume
+          secret:
+            secretName: fresco-secret
+            
+
 
 
 
