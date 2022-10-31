@@ -21,7 +21,7 @@ spec:
     containers:
         - name: fresco-nginx-container
           image: nginx
-          env: featch the value of server_URL_ENV from previous config map
+          env: fetch the value of server_URL_ENV from previous config map
 
 Test your configuration by executing this command kubectl exec -it fresco-nginx-pod -- sh -c env | grep SERVER_URL_ENV
 
@@ -175,6 +175,4 @@ if you try to execute 'kubectl --context=dev.ctx get pods -n default' , a forbid
 only employees are authorized to access the 'dev' namespace.
 
 ### Solution
-
-
 
